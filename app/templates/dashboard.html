@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Dashboard</h1>
+
+    {% if read_email_summaries %}
+        <h2>Read Emails:</h2>
+        <ul>
+            {% for email_summary in read_email_summaries %}
+                <li>
+                    <strong>From:</strong> {{ email_summary.sender }}<br>
+                    <strong>Subject:</strong> {{ email_summary.subject }}<br>
+                    <strong>Summary:</strong> {{ email_summary.summary }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No read emails available.</p>
+    {% endif %}
+
+    {% if unread_email_summaries %}
+        <h2>Unread Emails:</h2>
+        <ul>
+            {% for email_summary in unread_email_summaries %}
+                <li>
+                    <strong>From:</strong> {{ email_summary.sender }}<br>
+                    <strong>Subject:</strong> {{ email_summary.subject }}<br>
+                    <strong>Summary:</strong> {{ email_summary.summary }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No unread emails available.</p>
+    {% endif %}
+
+    <a href="{{ url_for('routes.logout') }}">Logout</a>
+</body>
+</html>

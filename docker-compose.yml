@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://root:swarnim10@db:3306/email_summarizer_db  # Replace with your MySQL connection string
+    volumes:
+      - .:/app  # Mount the current directory to /app in the container
+
+  db:
+    # platform: linux/x86_64
+    image: mysql/mysql-server:8.0.23
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: swarnim10  # Change to a strong password
+      MYSQL_DATABASE: email_summarizer_db             # Change to your desired database name
+      MYSQL_USER: root               # Change to your desired username
+      MYSQL_PASSWORD: swarnim10           # Change to your desired password
+    ports:
+      - "3306:3306"                      # Expose MySQL port
